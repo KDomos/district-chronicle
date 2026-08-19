@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink font-body antialiased;
+    background-image: theme("backgroundImage.noise");
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  a {
+    @apply underline decoration-line decoration-1 underline-offset-2 hover:decoration-2;
+  }
+
+  ::selection {
+    @apply bg-brick text-paper;
+  }
+
+  *:focus-visible {
+    outline: 2px solid #2B4570;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Eyebrow / kicker label used above headlines */
+  .kicker {
+    @apply font-mono text-[11px] tracking-[0.18em] uppercase text-ink-soft;
+  }
+
+  /* Hairline rule, the newspaper column divider */
+  .hr-rule {
+    @apply border-t border-line;
+  }
+
+  .hr-rule-thick {
+    border-top: 3px double theme("colors.ink");
+  }
+
+  /* Blog article card: clean, underlined-headline treatment */
+  .card-blog {
+    @apply bg-paper-raised border border-line shadow-card transition-transform;
+  }
+  .card-blog:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Gossip clipping card: taped-corner, slightly rotated, torn feel */
+  .card-gossip {
+    @apply bg-paper-raised border border-line shadow-clip transition-transform;
+    transform: rotate(var(--tilt, -0.6deg));
+  }
+  .card-gossip:hover {
+    transform: rotate(0deg) translateY(-2px);
+  }
+
+  .tape {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 64px;
+    height: 22px;
+    background: rgba(201, 151, 30, 0.35);
+    border: 1px solid rgba(201, 151, 30, 0.5);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-[0.12em] px-4 py-2.5 transition-colors no-underline;
+  }
+  .btn-primary {
+    @apply btn bg-ink text-paper hover:bg-brick;
+  }
+  .btn-secondary {
+    @apply btn bg-transparent text-ink border border-ink hover:bg-ink hover:text-paper;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-ink-soft hover:text-ink no-underline;
+  }
+
+  .input {
+    @apply w-full bg-paper-raised border border-line px-3 py-2 font-body text-ink placeholder:text-ink-soft/60 focus:border-denim outline-none;
+  }
+
+  .label {
+    @apply font-mono text-[11px] uppercase tracking-[0.14em] text-ink-soft block mb-1.5;
+  }
+}
