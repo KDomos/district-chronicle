@@ -41,6 +41,7 @@ def serialize_post(doc) -> dict:
     doc.pop("_id", None)
     doc.setdefault("status", "published")
     doc.setdefault("tags", [])
+    doc.setdefault("view_count", 0)
     # Convenience boolean the frontend already relies on for display.
     doc["published"] = _effective_published(doc)
     return doc
