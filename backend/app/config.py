@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     frontend_origin: str = "http://localhost:3000"
     upload_dir: str = "uploads"
     max_upload_mb: int = 10
+    cloudinary_url: str = ""
 
     # Email notifications (SMTP) — server-level, not user-editable via API
     smtp_host: str = ""
