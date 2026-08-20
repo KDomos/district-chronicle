@@ -57,7 +57,7 @@ export default function ShareBar({ title }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
       {SHARE_TARGETS.map((t) => (
-        
+        <a
           key={t.key}
           href={t.urlFor(url, title)}
           target="_blank"
