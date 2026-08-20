@@ -60,7 +60,6 @@ export default function App() {
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<Dashboard />} />
                 <Route path="posts/:postType" element={<PostsManager />} />
-                <Route path="posts/:postType/new" element={<PostEditor />} />
                 <Route path="posts/:postType/:postId" element={<PostEditor />} />
                 <Route path="comments" element={<CommentsModeration />} />
                 <Route path="albums" element={<AlbumsManager />} />
