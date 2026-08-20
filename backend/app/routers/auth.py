@@ -20,7 +20,7 @@ async def login(payload: LoginRequest, response: Response):
         value=token,
         httponly=True,
         secure=settings.cookie_secure,
-        samesite="lax",
+        samesite="none",
         max_age=60 * 60 * 24 * 7,
         path="/",
     )
