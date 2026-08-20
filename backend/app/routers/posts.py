@@ -102,6 +102,18 @@ async def get_post(slug: str):
         raise HTTPException(status_code=404, detail="Post not found")
     return serialize_post(post)
 
+@router.post("/{post_id}/view")
+async def record_view(post_id: str):
+    try:
+        oid = ObjectId(post_id)
+    except InvalidId:
+        raise HTTPException(status_code=400, detail="Invalid post id")
+
+    result = await posts_col.update_one({"_id": oid}, {"$inc": {"view_count": 1}})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Post not found")
+    return {"ok": True}
+
 
 @router.post("", dependencies=[Depends(require_admin)])
 async def create_post(payload: PostCreate):
