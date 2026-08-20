@@ -4,6 +4,7 @@ import { api, fileUrl } from "../api/client";
 import LoadingState from "../components/LoadingState";
 import EmptyState from "../components/EmptyState";
 import ReactionBar from "../components/ReactionBar";
+import ShareBar from "../components/ShareBar";
 import CommentSection from "../components/CommentSection";
 
 function formatDate(iso) {
@@ -85,6 +86,10 @@ export default function PostDetail() {
       <div className="hr-rule pt-6 mb-10">
         <span className="kicker block mb-3">React</span>
         <ReactionBar postId={post.id} />
+      </div>
+      <div className="hr-rule pt-6 mb-10">
+        <span className="kicker block mb-3">Share</span>
+        <ShareBar title={post.title} />
       </div>
 
       <div className="hr-rule pt-8">
