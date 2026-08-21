@@ -21,6 +21,7 @@ from app.routers import (
     uploads,
     dashboard,
     rss,
+    push,
 )
 
 
@@ -70,6 +71,7 @@ app.include_router(contact.router)
 app.include_router(uploads.router)
 app.include_router(dashboard.router)
 app.include_router(rss.router)
+app.include_router(push.router)
 
 
 @app.get("/api/health")
