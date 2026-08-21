@@ -7,6 +7,7 @@ from app.database import posts_col, comments_col, reactions_col
 from app.models import PostCreate, PostUpdate
 from app.auth import require_admin
 from app.utils.files import utcnow, slugify
+from app.routers.push import notify_all_subscribers
 
 router = APIRouter(prefix="/api/posts", tags=["posts"])
 
@@ -127,6 +128,14 @@ async def create_post(payload: PostCreate):
     doc["updated_at"] = utcnow()
     result = await posts_col.insert_one(doc)
     created = await posts_col.find_one({"_id": result.inserted_id})
+    if doc["status"] == "published":
+        excerpt = (doc.get("excerpt") or "").strip()
+        body = excerpt if excerpt else "Tap to read the new post."
+        await notify_all_subscribers(
+            title=doc["title"],
+            body=body,
+            url=f"/{doc['post_type']}/{slug}",
+        )
     return serialize_post(created)
 
 
