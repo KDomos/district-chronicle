@@ -60,7 +60,7 @@ export default function PostsManager() {
               <div className="min-w-0">
                 <p className="font-semibold truncate">{p.title}</p>
                 <p className="font-mono text-[11px] text-ink-soft uppercase tracking-widest mt-0.5">
-                  {statusLabel(p)} &middot; {new Date(p.created_at).toLocaleDateString()} &middot; /{p.slug}
+                  {statusLabel(p)} &middot; {new Date(p.created_at).toLocaleDateString()} &middot; /{p.slug} &middot; {p.view_count || 0} view{p.view_count === 1 ? "" : "s"}
                 </p>
                 {p.tags && p.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-1.5">
