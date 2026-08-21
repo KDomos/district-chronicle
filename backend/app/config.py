@@ -26,6 +26,11 @@ class Settings(BaseSettings):
     smtp_use_tls: bool = True
     admin_notification_email: str = ""  # falls back to smtp_from_email if unset
 
+    # Web push notifications (VAPID) — set both to enable; leave blank to disable
+    vapid_public_key: str = ""
+    vapid_private_key: str = ""
+    vapid_subject: str = "mailto:admin@example.com"  # required by the push spec; a contact for push services to reach you
+
     class Config:
         env_file = ".env"
 
