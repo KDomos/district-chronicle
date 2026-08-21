@@ -24,6 +24,17 @@ export default function PostDetail() {
       .catch(() => setPost(null));
   }, [slug]);
 
+    useEffect(() => {
+    if (!post) return;
+    const key = `viewed:${post.id}`;
+    const last = Number(localStorage.getItem(key) || 0);
+    const dayMs = 24 * 60 * 60 * 1000;
+    if (Date.now() - last > dayMs) {
+      api.post(`/posts/${post.id}/view`, {}).catch(() => {});
+      localStorage.setItem(key, String(Date.now()));
+    }
+  }, [post]);
+
   if (post === undefined) return <LoadingState />;
   if (post === null) {
     return (
