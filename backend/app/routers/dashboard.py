@@ -31,6 +31,23 @@ async def get_stats():
         c["id"] = str(c["_id"])
         c.pop("_id", None)
 
+        most_viewed = await posts_col.find({}).sort("view_count", -1).limit(5).to_list(5)
+    most_viewed_out = [
+        {
+            "id": str(p["_id"]),
+            "title": p.get("title", ""),
+            "slug": p.get("slug", ""),
+            "post_type": p.get("post_type", "blog"),
+            "view_count": p.get("view_count", 0) or 0,
+        }
+        for p in most_viewed
+    ]
+
+    total_views_agg = await posts_col.aggregate(
+        [{"$group": {"_id": None, "total": {"$sum": {"$ifNull": ["$view_count", 0]}}}}]
+    ).to_list(1)
+    total_views = total_views_agg[0]["total"] if total_views_agg else 0
+
     return {
         "posts": {
             "blog": blog_count,
@@ -46,3 +63,6 @@ async def get_stats():
         "messages": {"total": message_count, "unread": unread_messages},
         "recent_comments": recent_comments,
     }
+
+        "total_views": total_views,
+        "most_viewed": most_viewed_out,
