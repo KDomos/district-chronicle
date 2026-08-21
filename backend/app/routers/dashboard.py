@@ -62,7 +62,6 @@ async def get_stats():
         "photos": photo_count,
         "messages": {"total": message_count, "unread": unread_messages},
         "recent_comments": recent_comments,
-    }
-
         "total_views": total_views,
         "most_viewed": most_viewed_out,
+    }
