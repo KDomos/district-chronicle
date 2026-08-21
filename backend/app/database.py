@@ -14,6 +14,7 @@ portfolio_col = db["portfolio"]      # single document
 site_settings_col = db["site_settings"]  # single document
 messages_col = db["messages"]
 admin_col = db["admin"]              # single admin account
+push_subscriptions_col = db["push_subscriptions"]  # browser push opt-ins
 
 
 async def ensure_indexes():
@@ -26,3 +27,4 @@ async def ensure_indexes():
     await reactions_col.create_index([("post_id", 1), ("visitor_key", 1), ("reaction_type", 1)], unique=True)
     await photos_col.create_index("album_id")
     await messages_col.create_index("created_at")
+    await push_subscriptions_col.create_index("endpoint", unique=True)
