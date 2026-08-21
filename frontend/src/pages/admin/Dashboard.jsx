@@ -37,6 +37,32 @@ export default function Dashboard() {
         <StatCard label="Photos" value={stats.photos} to="/admin/albums" />
         <StatCard label="Messages" value={stats.messages.total} to="/admin/inbox" />
         <StatCard label="Unread messages" value={stats.messages.unread} to="/admin/inbox" />
+        <StatCard label="Total views" value={stats.total_views} />
+      </div>
+            <div className="hr-rule pt-6 mb-10">
+        <h2 className="font-display text-xl font-semibold mb-4">Most viewed</h2>
+        {stats.most_viewed.length === 0 ? (
+          <p className="text-ink-soft text-sm italic">No views recorded yet.</p>
+        ) : (
+          <ul className="divide-y divide-line border border-line bg-paper-raised">
+            {stats.most_viewed.map((p, i) => (
+              <li key={p.id} className="p-3 flex items-center justify-between gap-3">
+                <div className="min-w-0 flex items-baseline gap-3">
+                  <span className="font-mono text-xs text-ink-soft w-4 shrink-0">{i + 1}</span>
+                  <Link
+                    to={`/admin/posts/${p.post_type}/${p.id}`}
+                    className="font-semibold truncate no-underline text-ink hover:underline"
+                  >
+                    {p.title}
+                  </Link>
+                </div>
+                <span className="font-mono text-xs text-ink-soft shrink-0">
+                  {p.view_count} view{p.view_count === 1 ? "" : "s"}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div className="hr-rule pt-6">
